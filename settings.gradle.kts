@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "LangCardKMP"
-include(":LangCardImage")
+include(":langcardimage")

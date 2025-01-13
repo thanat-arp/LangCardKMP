@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -41,7 +42,7 @@ kotlin {
 
 android {
     version = "0.0.1"
-    group = "com.example.langcardimage"
+    group = "com.example.langcardkmp"
     namespace = "com.example.langcardkmp"
     compileSdk = 35
     defaultConfig {
@@ -60,10 +61,10 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://github.com/Thanat-Arpornrat/LangCardKMP.git")
+            url = uri("https://maven.pkg.github.com/thanat-arp/LangCardKMP")
             credentials {
-                username = providers.environmentVariable("GITHUB_USER").get()
-                password = providers.environmentVariable("GITHUB_TOKEN").get()
+                username = properties.getProperty("github.user")
+                password = properties.getProperty("github.token")
             }
         }
     }
