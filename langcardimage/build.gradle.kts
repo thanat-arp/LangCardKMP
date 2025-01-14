@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     id("maven-publish")
-    alias(libs.plugins.kmmbridge)
 }
 
 kotlin {
@@ -17,14 +16,16 @@ kotlin {
             publishAllLibraryVariants()
         }
     }
-
+    
+    val xcf = XCFramework("LangCardImage")
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "langcardimage"
+            baseName = "LangCardImage"
+            xcf.add(this)
             isStatic = true
         }
     }
@@ -40,9 +41,7 @@ kotlin {
 }
 
 android {
-    val LIBRARY_VERSION: String by project
-
-    version = LIBRARY_VERSION
+    version = "0.0.1"
     group = "com.example.langcardkmp"
     namespace = "com.example.langcardkmp"
     compileSdk = 35
@@ -57,23 +56,16 @@ android {
 
 val  properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
-//
-//publishing {
-//    repositories {
-//        maven {
-//            name = "GitHubPackages"
-//            url = uri("https://maven.pkg.github.com/thanat-arp/LangCardKMP")
-//            credentials {
-//                username = properties.getProperty("github.user")
-//                password = properties.getProperty("github.token")
-//            }
-//        }
-//    }
-//}
 
-addGithubPackagesRepository()
-
-kmmbridge {
-    gitHubReleaseArtifacts()
-    spm()
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/thanat-arp/LangCardKMP")
+            credentials {
+                username = properties.getProperty("github.user")
+                password = properties.getProperty("github.token")
+            }
+        }
+    }
 }
