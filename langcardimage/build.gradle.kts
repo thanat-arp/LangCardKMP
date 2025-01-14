@@ -55,8 +55,8 @@ android {
     }
 }
 
-//val  properties = Properties()
-//properties.load(project.rootProject.file("local.properties").inputStream())
+val  properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
 //
 //publishing {
 //    repositories {
